@@ -1,112 +1,88 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Text} from './src/components';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+import HomeScreen from './src/modules/home/HomeScreen';
+import {scale} from './src/utils/resolutions';
+import {colors} from './src/constant';
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  label: {
+    textAlign: 'center',
+    fontSize: scale(12),
+    paddingBottom: scale(4),
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  fcText: {
+    color: colors.orange,
   },
 });
+
+const Label = ({children, focused}) => {
+  return (
+    <Text
+      bold={focused ? true : false}
+      color={focused ? colors.orange : colors.brown}
+      style={[styles.label, focused && styles.fcText]}>
+      {children}
+    </Text>
+  );
+};
+
+const Tab = createBottomTabNavigator();
+
+const TabApp = () => {
+  return (
+    <>
+      <Tab.Navigator
+        initialRouteName={HomeScreen}
+        backBehavior="initialRoute"
+        screenOptions={({route}) => ({
+          headerShown: false,
+          gestureEnabled: false,
+          tabBarIcon: ({focused}) => {
+            if (route.name === 'HomeScreen') {
+              return (
+                <Ionicons
+                  name="home"
+                  size={22}
+                  color={focused ? 'orange' : 'gray'}
+                />
+              );
+            }
+          },
+        })}>
+        <Tab.Screen
+          name={'HomeScreen'}
+          component={HomeScreen}
+          options={{
+            tabBarLabel: ({focused}) => <Label {...{focused}}>{'Home'}</Label>,
+          }}
+        />
+      </Tab.Navigator>
+    </>
+  );
+};
+
+const Stack = createNativeStackNavigator();
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          gestureEnabled: false,
+          animation: 'slide_from_right',
+        }}>
+        <Stack.Screen name={'TabApp'} component={TabApp} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default App;
