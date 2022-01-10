@@ -11,6 +11,7 @@ export default StyleSheet.create({
   header: {
     paddingHorizontal: scale(15),
     marginTop: scale(20),
+    zIndex: -9999,
   },
   login: {
     width: '100%',
@@ -58,5 +59,21 @@ export default StyleSheet.create({
   txtLoginContent: {
     lineHeight: scale(18),
     fontSize: fontSize.fontSize16,
+  },
+  btmContainer: {
+    backgroundColor: colors.white,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+    borderRadius: scale(8),
+    paddingHorizontal: scale(10),
+    paddingVertical: scale(5),
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
 });

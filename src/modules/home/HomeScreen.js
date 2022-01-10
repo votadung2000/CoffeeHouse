@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {View, ImageBackground} from 'react-native';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 import {Text, Button} from '../../components';
 import styles from './styles';
 
 const HomeScreen = () => {
+  const bottomSheetRef = useRef(null);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -29,6 +32,15 @@ const HomeScreen = () => {
           </Button>
         </View>
       </View>
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={1}
+        snapPoints={['25%', '100%']}
+        style={styles.btmContainer}>
+        <View style={styles.contentContainer}>
+          {/* <Text>Awesome 🎉</Text> */}
+        </View>
+      </BottomSheet>
     </View>
   );
 };
