@@ -6,7 +6,7 @@ import {scale} from '../../utils/resolutions';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.lightOrange,
   },
   header: {
     paddingHorizontal: scale(15),
@@ -15,7 +15,6 @@ export default StyleSheet.create({
   },
   login: {
     width: '100%',
-    aspectRatio: 1.5,
     backgroundColor: colors.white,
     shadowColor: '#000',
     shadowOffset: {
@@ -27,8 +26,8 @@ export default StyleSheet.create({
     elevation: 3,
     borderRadius: scale(8),
     paddingHorizontal: scale(10),
-    paddingVertical: scale(5),
-    justifyContent: 'space-around',
+    paddingVertical: scale(25),
+    justifyContent: 'center',
     alignItems: 'center',
   },
   imgLogin: {
@@ -42,7 +41,8 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   txtLoginTitle: {
-    fontSize: fontSize.huge,
+    fontSize: fontSize.large,
+    marginBottom: scale(25),
   },
   btnLogin: {
     backgroundColor: colors.orange,
@@ -53,27 +53,12 @@ export default StyleSheet.create({
     borderRadius: scale(8),
   },
   txtLogin: {
-    fontSize: fontSize.big,
+    fontSize: fontSize.large,
     color: colors.white,
   },
   txtLoginContent: {
+    marginBottom: scale(25),
     lineHeight: scale(18),
-    fontSize: fontSize.fontSize16,
-  },
-  btmContainer: {
-    backgroundColor: colors.white,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
-    borderRadius: scale(8),
-    paddingHorizontal: scale(10),
-    paddingVertical: scale(5),
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    fontSize: fontSize.normal,
   },
 });
